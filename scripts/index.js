@@ -211,15 +211,18 @@ fetchVideos('cat', (response)=> console.log(response));
 // TEST IT! Grab an example API response and send it into the function - make sure
 // you get back the object you want.
 const decorateResponse = function(response) {
-  const results=response.items.map(item=>{
+  console.log('decorateResponse ran')
+  const results = response.items.map(item=>{
     return {
-      id:item.videoId,
-      title:item.snippet.title,
-      thumbnail:item.snippet.thumbnails.default.url
+      id: item.videoId,
+      title: item.snippet.title,
+      thumbnail: item.snippet.thumbnails.high.url
     };
-   });
-   console.log(store.videos(results));
+  });
+  console.log(results);
 };
+// const decorated = decorateResponse(mockData);
+// console.log(decorated);
 
 // console.log(decorateResponse.id);
 
@@ -228,15 +231,23 @@ const decorateResponse = function(response) {
 // 2. Using the object, return an HTML string containing all the expected data
 // TEST IT!
 const generateVideoItemHtml = function(video) {
-
+  console.log('generateVideoItemHtml ran');
+  return
+  `<li>
+    <span>${video.id}</span>
+    <span>${video.title}</span>
+    <img src = "${video.thumbnail}">
+  </li>`;
 };
+ generateVideoItemHtml(decorateResponse[0]);
 
 // TASK:
 // 1. Create a `addVideosToStore` function that receives an array of decorated video 
 // objects and sets the array as the value held in store.items
 // TEST IT!
 const addVideosToStore = function(videos) {
-
+  store.videos = videos;
+  console.log(store.videos);
 };
 
 // TASK:
